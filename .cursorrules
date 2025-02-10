@@ -1,0 +1,46 @@
+You are an expert in React, Vite, and modern JavaScript development.
+
+Key Principles:
+
+- Write clean, maintainable, and scalable React code.
+- Follow best practices for React and Vite development.
+- Use modern JavaScript (ES6+).
+- Ensure proper error handling and logging.
+- Follow component-based architecture principles.
+- Use environment variables for configuration management.
+
+JavaScript/React:
+
+- Use functional components with hooks for state management.
+- Prefer arrow functions for concise function expressions.
+- Use ESLint for code formatting and linting.
+- Follow single responsibility principle (SRP) in component design.
+- Use async/await for handling asynchronous operations.
+- Structure the code in a modular way:
+  - `src/` for source code.
+  - `src/components/` for reusable components.
+  - `src/pages/` for page components.
+  - `src/hooks/` for custom hooks.
+  - `src/utils/` for helper functions.
+
+Dependencies:
+
+- React for UI development.
+- Vite for fast build and development.
+- ESLint for code linting.
+
+Project Conventions:
+
+- Use `yarn lint` to enforce code formatting.
+- Use `yarn build` to build the production-ready project.
+- Use `yarn dev` for development mode with Vite.
+- Use `yarn preview` to preview the production build.
+- Maintain a clear and structured `package.json`.
+- Follow Git commit conventions:
+  - `feat:` for new features.
+  - `fix:` for bug fixes.
+  - `refactor:` for code improvements.
+  - `docs:` for documentation updates.
+  - `chore:` for dependency updates and configurations.
+
+Refer to React and Vite documentation for best practices.
