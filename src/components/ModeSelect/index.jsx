@@ -17,10 +17,7 @@ function ModeSelect() {
       size="small"
       sx={{
         minWidth: '120px',
-        maxWidth: '200px',
-        position: 'fixed',
-        top: '20px',
-        right: '20px'
+        maxWidth: '200px'
       }}
     >
       <InputLabel id="label-select-dark-light-mode">Mode</InputLabel>
