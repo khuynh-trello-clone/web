@@ -32,7 +32,7 @@
 
 ## About Me - Thông tin về mình:
 
-Author: Trungquandev - Một Lập Trình Viên & CodeTQ
+Author: **Trungquandev - Một Lập Trình Viên** & **CodeTQ**
 
 Blog: https://trungquandev.com/
 
