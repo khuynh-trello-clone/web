@@ -1,6 +1,6 @@
+import AttachmentIcon from '@mui/icons-material/Attachment'
 import CommentIcon from '@mui/icons-material/Comment'
 import GroupIcon from '@mui/icons-material/Group'
-import VisibilityIcon from '@mui/icons-material/Visibility'
 import { Button } from '@mui/material'
 import { default as CardMUI } from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
@@ -8,7 +8,14 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 
-function Card() {
+function Card({ card }) {
+  const members = card?.memberIds || []
+  const comments = card?.comments || []
+  const attachments = card?.attachments || []
+
+  const shouldShowCardActions =
+    !!members?.length || !!comments?.length || !!attachments?.length
+
   return (
     <CardMUI
       sx={{
@@ -17,25 +24,36 @@ function Card() {
         overflow: 'unset'
       }}
     >
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://trungquandev.com/wp-content/uploads/2024/03/programming-background-with-person-working-with-codes-computer-trungquandev-codetq.jpeg"
-        title="green iguana"
-      />
+      {card?.cover && (
+        <CardMedia
+          sx={{ height: 140 }}
+          image={card?.cover}
+          title="green iguana"
+        />
+      )}
+
       <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
-        <Typography>Khuynh Dev</Typography>
+        <Typography>{card?.title}</Typography>
       </CardContent>
-      <CardActions sx={{ p: '0 4px 8px' }}>
-        <Button size="small" startIcon={<GroupIcon />}>
-          20
-        </Button>
-        <Button size="small" startIcon={<CommentIcon />}>
-          36
-        </Button>
-        <Button size="small" startIcon={<VisibilityIcon />}>
-          18
-        </Button>
-      </CardActions>
+      {shouldShowCardActions && (
+        <CardActions sx={{ p: '0 4px 8px' }}>
+          {!!members?.length && (
+            <Button size="small" startIcon={<GroupIcon />}>
+              {members?.length}
+            </Button>
+          )}
+          {!!comments?.length && (
+            <Button size="small" startIcon={<CommentIcon />}>
+              {comments?.length}
+            </Button>
+          )}
+          {!!attachments?.length && (
+            <Button size="small" startIcon={<AttachmentIcon />}>
+              {attachments?.length}
+            </Button>
+          )}
+        </CardActions>
+      )}
     </CardMUI>
   )
 }
