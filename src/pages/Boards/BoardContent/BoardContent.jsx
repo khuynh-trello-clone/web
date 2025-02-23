@@ -4,24 +4,22 @@ import ListColumns from './ListColumns/ListColumns'
 
 import {
   DndContext,
+  DragOverlay,
   MouseSensor,
   TouchSensor,
-  useSensor,
-  useSensors,
-  DragOverlay,
-  defaultDropAnimationSideEffects,
   closestCorners,
-  pointerWithin,
-  rectIntersection,
+  defaultDropAnimationSideEffects,
   getFirstCollision,
-  closestCenter
+  pointerWithin,
+  useSensor,
+  useSensors
 } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
 
+import { cloneDeep } from 'lodash'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Column from './ListColumns/Column/Column'
 import Card from './ListColumns/Column/ListCards/Card/Card'
-import { cloneDeep } from 'lodash'
 
 const ACTIVE_DRAG_ITEM_TYPE = {
   COLUMN: 'ACTIVE_DRAG_ITEM_TYPE_COLUMN',
@@ -289,18 +287,23 @@ function BoardContent({ board }) {
 
       // find collisions
       const pointerIntersections = pointerWithin(args)
-      const intersections =
-        pointerIntersections?.length > 0
-          ? pointerIntersections
-          : rectIntersection(args)
 
-      let overId = getFirstCollision(intersections, 'id')
+      if (!pointerIntersections?.length) {
+        return
+      }
+
+      // const intersections =
+      //   pointerIntersections?.length > 0
+      //     ? pointerIntersections
+      //     : rectIntersection(args)
+
+      let overId = getFirstCollision(pointerIntersections, 'id')
 
       if (overId) {
         const checkColumn = orderedColumns.find(column => column._id === overId)
 
         if (checkColumn) {
-          overId = closestCenter({
+          overId = closestCorners({
             ...args,
             droppableContainers: args.droppableContainers.filter(
               container =>
