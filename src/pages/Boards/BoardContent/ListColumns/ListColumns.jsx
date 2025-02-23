@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box'
+import NoteAddIcon from '@mui/icons-material/NoteAdd'
 import Column from './Column/Column'
-
+import Button from '@mui/material/Button'
 function ListColumns() {
   return (
     <Box
@@ -16,9 +17,34 @@ function ListColumns() {
         }
       }}
     >
-      {[...Array(10)].map((_, index) => (
+      {[...Array(5)].map((_, index) => (
         <Column key={index} />
       ))}
+
+      {/* Box Add Column */}
+      <Box
+        sx={{
+          minWidth: '200px',
+          maxWidth: '200px',
+          mx: 2,
+          borderRadius: '6px',
+          height: 'fit-content',
+          bgcolor: '#ffffff3d'
+        }}
+      >
+        <Button
+          startIcon={<NoteAddIcon />}
+          sx={{
+            color: 'white',
+            width: '100%',
+            justifyContent: 'flex-start',
+            pl: 2.5,
+            py: 1
+          }}
+        >
+          Add new column
+        </Button>
+      </Box>
     </Box>
   )
 }
