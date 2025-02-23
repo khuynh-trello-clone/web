@@ -1,8 +1,11 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
-import { useColorScheme } from '@mui/material/styles'
-import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
+import LightModeIcon from '@mui/icons-material/LightMode'
 import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness'
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import Select from '@mui/material/Select'
+import { useColorScheme } from '@mui/material/styles'
 
 function ModeSelect() {
   const { mode, setMode } = useColorScheme()
