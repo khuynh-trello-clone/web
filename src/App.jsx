@@ -1,25 +1,21 @@
-import AccessAlarmIcon from '@mui/icons-material/AccessAlarm'
-import HomeIcon from '@mui/icons-material/Home'
-import ThreeDRotation from '@mui/icons-material/ThreeDRotation'
-import { Button } from '@mui/material'
-import { pink } from '@mui/material/colors'
+import { Box, Button, Typography } from '@mui/material'
 
 function App() {
   return (
-    <>
-      Kieuquanghuynh
-      <Button variant="contained">Click me</Button>
-      <br />
-      <AccessAlarmIcon />
-      <ThreeDRotation />
-      <HomeIcon />
-      <HomeIcon color="primary" />
-      <HomeIcon color="secondary" />
-      <HomeIcon color="success" />
-      <HomeIcon color="action" />
-      <HomeIcon color="disabled" />
-      <HomeIcon sx={{ color: pink[500] }} />
-    </>
+    <Box sx={{ p: 2 }}>
+      <Typography variant="h1">Heading 1</Typography>
+      <Typography variant="h2">Heading 2</Typography>
+      <Typography variant="h3">Heading 3</Typography>
+
+      <Box sx={{ mt: 2 }}>
+        <Button variant="contained" sx={{ mr: 1 }}>
+          Primary Button
+        </Button>
+        <Button variant="contained" color="secondary">
+          Secondary Button
+        </Button>
+      </Box>
+    </Box>
   )
 }
 
