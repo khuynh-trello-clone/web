@@ -1,13 +1,13 @@
-### Bộ code base để bắt đầu học khóa MERN Stack trên YouTube của mình nhé các bạn!
-### Base project for my MERN Stack Course - Build Trello App on YouTube!
-
-- Link YouTube Playlist: (Sắp có...)
+### Bộ code base để bắt đầu học khóa MERN Stack Pro - Lập Trình qua dự án thực tế Trello Clone trên YouTube của mình nhé các bạn!
+### Base project for my MERN Stack Pro Course - Build Trello App on YouTube!
 
 - Link Download Full Source Code hoàn chỉnh của bộ này và ủng hộ mình: (Sắp có...)
 
+- Link YouTube Playlist: https://www.youtube.com/playlist?list=PLP6tw4Zpj-RJP2-YrhtkWqObMQ-AA4TDy
+
 ### Hướng dẫn clone Repo code này về máy các bạn chuẩn nhất ở đây nhé:
 
-- Link: (Sắp có...)
+- Link: https://youtu.be/lUfsTj45Uys
 
 ### Requirements - Thông tin của bộ Code Base này - Chuẩn các phiên bản dưới đây để bắt đầu học: (Semantic Versioning)
 
