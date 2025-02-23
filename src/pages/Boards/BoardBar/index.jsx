@@ -12,13 +12,13 @@ import Chip from '@mui/material/Chip'
 import Tooltip from '@mui/material/Tooltip'
 
 const MENU_STYLE = {
-  color: 'primary.main',
-  bgcolor: 'white',
+  color: 'white',
+  bgcolor: 'transparent',
   border: 'none',
   paddingX: '5px',
   borderRadius: '4px',
-  '& .MuiSvgIcon-root': {
-    color: 'primary.main'
+  '.MuiSvgIcon-root': {
+    color: 'white'
   },
   '&:hover': {
     bgcolor: 'primary.50'
@@ -38,7 +38,10 @@ function BoardBar() {
         gap: 2,
         px: 2,
         overflowX: 'auto',
-        borderTop: '2px solid #00bfa5'
+        borderTop: '2px solid #00bfa5',
+        bgcolor: theme =>
+          theme.palette.mode === 'dark' ? '#34495e' : '#1976d2',
+        borderBottom: '1px solid white'
       }}
     >
       <Box display="flex" alignItems="center" gap={2}>
@@ -79,13 +82,31 @@ function BoardBar() {
         />
       </Box>
       <Box display="flex" alignItems="center" gap={2}>
-        <Button variant="outlined" startIcon={<PersionAddIcon />}>
+        <Button
+          variant="outlined"
+          startIcon={<PersionAddIcon />}
+          sx={{
+            color: 'white',
+            borderColor: 'white',
+            '&:hover': {
+              borderColor: 'white'
+            }
+          }}
+        >
           Invite
         </Button>
 
         <AvatarGroup
-          max={4}
-          sx={{ '& .MuiAvatar-root': { width: 34, height: 34, fontSize: 16 } }}
+          max={7}
+          sx={{
+            gap: '10px',
+            '& .MuiAvatar-root': {
+              width: 34,
+              height: 34,
+              fontSize: 16,
+              border: 'none'
+            }
+          }}
         >
           <Tooltip title="Remy Sharp" arrow>
             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
@@ -98,6 +119,21 @@ function BoardBar() {
           </Tooltip>
           <Tooltip title="Agnes Walker" arrow>
             <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
+          </Tooltip>
+          <Tooltip title="Trevor Henderson" arrow>
+            <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
+          </Tooltip>
+          <Tooltip title="Trevor Henderson" arrow>
+            <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
+          </Tooltip>
+          <Tooltip title="Trevor Henderson" arrow>
+            <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
+          </Tooltip>
+          <Tooltip title="Trevor Henderson" arrow>
+            <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
+          </Tooltip>
+          <Tooltip title="Trevor Henderson" arrow>
+            <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
           </Tooltip>
           <Tooltip title="Trevor Henderson" arrow>
             <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
