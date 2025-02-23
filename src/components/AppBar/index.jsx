@@ -1,4 +1,6 @@
 import AppsIcon from '@mui/icons-material/Apps'
+import HelpOutline from '@mui/icons-material/HelpOutline'
+import LibaryAddIcon from '@mui/icons-material/LibraryAdd'
 import NotificationsNone from '@mui/icons-material/NotificationsNone'
 import Badge from '@mui/material/Badge'
 import Box from '@mui/material/Box'
@@ -9,12 +11,11 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { ReactComponent as TrelloLogo } from '~/assets/trello.svg'
 import ModeSelect from '~/components/ModeSelect'
+import Profiles from './Menus/Profiles'
 import Recent from './Menus/Recent'
 import Started from './Menus/Started'
 import Templates from './Menus/Templates'
 import Workspaces from './Menus/Workspaces'
-import HelpOutline from '@mui/icons-material/HelpOutline'
-import Profiles from './Menus/Profiles'
 
 function AppBar() {
   return (
@@ -64,7 +65,9 @@ function AppBar() {
           <Templates />
         </Box>
 
-        <Button variant="outlined">Create</Button>
+        <Button variant="outlined" startIcon={<LibaryAddIcon />}>
+          Create
+        </Button>
       </Box>
 
       <Box display="flex" alignItems="center" gap={2}>
