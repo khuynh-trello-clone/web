@@ -16,11 +16,21 @@ import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { useState } from 'react'
-import ListCards from './ListCards/ListCards'
 import mapOrder from '~/utils/sorts'
+import ListCards from './ListCards/ListCards'
+
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 
 function Column({ column }) {
-  const orderdCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: column._id, data: { ...column } })
+
+  const dndKitColumnStyles = {
+    touchAction: 'none', // Prevent scrolling on touch devices
+    transform: CSS.Translate.toString(transform),
+    transition
+  }
 
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
@@ -31,8 +41,14 @@ function Column({ column }) {
     setAnchorEl(null)
   }
 
+  const orderdCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
+
   return (
     <Box
+      ref={setNodeRef}
+      style={dndKitColumnStyles}
+      {...attributes}
+      {...listeners}
       sx={{
         minWidth: '300px',
         maxWidth: '300px',
