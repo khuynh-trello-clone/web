@@ -7,22 +7,31 @@ import {
   MouseSensor,
   TouchSensor,
   useSensor,
-  useSensors
+  useSensors,
+  DragOverlay,
+  defaultDropAnimationSideEffects
 } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
 
 import { useEffect, useState } from 'react'
+import Column from './ListColumns/Column/Column'
+import Card from './ListColumns/Column/ListCards/Card/Card'
+
+const ACTIVE_DRAG_ITEM_TYPE = {
+  COLUMN: 'ACTIVE_DRAG_ITEM_TYPE_COLUMN',
+  CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
+}
+
+const isColumn = item => !!item?.columnId
 
 function BoardContent({ board }) {
-  // const pointerSensor = useSensor(PointerSensor, {
-  //   activationConstraint: {
-  //     // required move 10px to activate drag
-  //     distance: 10
-  //   }
-  // })
+  const [activeDragItemId, setActiveDragItemId] = useState(null)
+  const [activeDragItemType, setActiveDragItemType] = useState(null)
+  const [activeDragData, setActiveDragData] = useState(null)
+
+  // define sensors
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
-      // required move 10px to activate drag
       distance: 10
     }
   })
@@ -37,33 +46,52 @@ function BoardContent({ board }) {
 
   const [orderedColumns, setOrderedColumns] = useState([])
 
+  const handleDragStart = event => {
+    setActiveDragItemId(event?.active?.id)
+    setActiveDragItemType(
+      isColumn(event?.active?.data?.current)
+        ? ACTIVE_DRAG_ITEM_TYPE.CARD
+        : ACTIVE_DRAG_ITEM_TYPE.COLUMN
+    )
+    setActiveDragData(event?.active?.data?.current)
+  }
+
   const handleDragEnd = event => {
     const { active, over } = event
 
-    // Check if there is no over column
-    if (!over) return
+    if (!over) {
+      setActiveDragItemId(null)
+      return
+    }
 
-    // Check if active column is different from over column
     if (active.id !== over.id) {
-      // old column index
       const oldIndex = orderedColumns.findIndex(
         column => column._id === active.id
       )
 
-      // new column index
       const newIndex = orderedColumns.findIndex(
         column => column._id === over.id
       )
 
-      // Reorder column in orderedColumns
-      const dnOrderedColumns = arrayMove(orderedColumns, oldIndex, newIndex)
+      const newOrderedColumns = arrayMove(orderedColumns, oldIndex, newIndex)
 
-      // Get new column order ids list | prepare for update to db
-      const dndOrderedColumnIds = dnOrderedColumns.map(column => column._id)
-
-      // Update state with new ordered
-      setOrderedColumns(dnOrderedColumns)
+      setOrderedColumns(newOrderedColumns)
     }
+
+    // Reset active drag item
+    setActiveDragItemId(null)
+    setActiveDragItemType(null)
+    setActiveDragData(null)
+  }
+
+  const customDropAnimation = {
+    sideEffects: defaultDropAnimationSideEffects({
+      styles: {
+        active: {
+          opacity: 0.5
+        }
+      }
+    })
   }
 
   useEffect(() => {
@@ -76,7 +104,11 @@ function BoardContent({ board }) {
   }, [board])
 
   return (
-    <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+    <DndContext
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      sensors={sensors}
+    >
       <Box
         sx={{
           bgcolor: theme =>
@@ -87,6 +119,16 @@ function BoardContent({ board }) {
         }}
       >
         <ListColumns columns={orderedColumns} />
+        <DragOverlay dropAnimation={customDropAnimation}>
+          {!activeDragItemType && null}
+          {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN && (
+            <Column column={activeDragData} />
+          )}
+
+          {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.CARD && (
+            <Card card={activeDragData} />
+          )}
+        </DragOverlay>
       </Box>
     </DndContext>
   )
