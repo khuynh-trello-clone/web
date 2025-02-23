@@ -1,8 +1,8 @@
-import Box from '@mui/material/Box'
 import NoteAddIcon from '@mui/icons-material/NoteAdd'
-import Column from './Column/Column'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-function ListColumns() {
+import Column from './Column/Column'
+function ListColumns({ columns }) {
   return (
     <Box
       sx={{
@@ -17,8 +17,8 @@ function ListColumns() {
         }
       }}
     >
-      {[...Array(5)].map((_, index) => (
-        <Column key={index} />
+      {columns?.map((column, index) => (
+        <Column key={column._id} column={column} />
       ))}
 
       {/* Box Add Column */}

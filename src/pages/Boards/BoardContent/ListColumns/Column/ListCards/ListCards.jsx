@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
 import Card from './Card/Card'
 
-function ListCards() {
+function ListCards({ cards }) {
   return (
     <Box
       sx={{
@@ -24,8 +24,8 @@ function ListCards() {
         }
       }}
     >
-      {[...Array(10)].map((_, index) => (
-        <Card key={index} />
+      {cards?.map((_, index) => (
+        <Card key={index} card={_} />
       ))}
     </Box>
   )
