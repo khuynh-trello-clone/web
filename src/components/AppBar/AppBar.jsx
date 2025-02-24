@@ -99,7 +99,7 @@ function AppBar() {
               </InputAdornment>
             ),
             endAdornment: (
-              <InputAdornment position="start">
+              <InputAdornment position="end">
                 <CloseIcon
                   size="small"
                   sx={{
