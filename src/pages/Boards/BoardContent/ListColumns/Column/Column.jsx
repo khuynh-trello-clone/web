@@ -199,6 +199,7 @@ function Column({ column }) {
             </Box>
           ) : (
             <Box
+              data-no-dnd="true"
               sx={{
                 height: '100%',
                 display: 'flex',
