@@ -25,6 +25,7 @@ import TextField from '@mui/material/TextField'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import theme from '~/theme/theme'
+import { toast } from 'react-toastify'
 
 function Column({ column }) {
   const [newCardTitle, setNewCardTitle] = useState('')
@@ -37,6 +38,9 @@ function Column({ column }) {
 
   const addNewCard = () => {
     if (!newCardTitle) {
+      toast.error('Please enter card title', {
+        position: 'bottom-right'
+      })
       return
     }
 
@@ -261,9 +265,7 @@ function Column({ column }) {
                       boxShadow: 'none'
                     }
                   }}
-                  onClick={() => {
-                    // Add card
-                  }}
+                  onClick={addNewCard}
                 >
                   Add
                 </Button>
