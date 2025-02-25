@@ -12,7 +12,7 @@ import {
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-function ListColumns({ columns }) {
+function ListColumns({ columns, boardId, createNewColumn, createNewCard }) {
   const [newColumnTitle, setNewColumnTitle] = useState('')
 
   const [openNewColumnForm, setOpenNewColumnForm] = useState(false)
@@ -21,11 +21,18 @@ function ListColumns({ columns }) {
     setOpenNewColumnForm(!openNewColumnForm)
   }
 
-  const addNewColumn = () => {
+  const addNewColumn = async () => {
     if (!newColumnTitle) {
       toast.error('Please enter column title')
       return
     }
+
+    const newColumnData = {
+      title: newColumnTitle,
+      boardId
+    }
+
+    await createNewColumn(newColumnData)
 
     toggleNewColumnForm()
     setNewColumnTitle('')
@@ -52,7 +59,11 @@ function ListColumns({ columns }) {
         }}
       >
         {columns?.map((column, index) => (
-          <Column key={column._id} column={column} />
+          <Column
+            key={column._id}
+            column={column}
+            createNewCard={createNewCard}
+          />
         ))}
 
         {/* Box Add Column */}

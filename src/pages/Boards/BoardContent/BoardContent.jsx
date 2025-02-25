@@ -28,7 +28,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
 
 const isColumn = item => !!item?.columnId
 
-function BoardContent({ board }) {
+function BoardContent({ board, createNewColumn, createNewCard }) {
   const [activeDragItemId, setActiveDragItemId] = useState(null)
   const [activeDragItemType, setActiveDragItemType] = useState(null)
   const [activeDragData, setActiveDragData] = useState(null)
@@ -356,7 +356,12 @@ function BoardContent({ board }) {
           p: '10px 0'
         }}
       >
-        <ListColumns columns={orderedColumns} />
+        <ListColumns
+          columns={orderedColumns}
+          boardId={board?._id}
+          createNewColumn={createNewColumn}
+          createNewCard={createNewCard}
+        />
         <DragOverlay dropAnimation={customDropAnimation}>
           {!activeDragItemType && null}
           {activeDragItemType === ACTIVE_DRAG_ITEM_TYPE.COLUMN && (
