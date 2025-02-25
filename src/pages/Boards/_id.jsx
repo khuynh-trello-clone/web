@@ -9,7 +9,8 @@ import { useEffect, useState } from 'react'
 import {
   createNewCardAPI,
   createNewColumnAPI,
-  fetchBoardDetailsAPI
+  fetchBoardDetailsAPI,
+  updateBoardDetailsAPI
 } from '~/apis'
 import { BOARD_ID } from '~/utils/constants'
 import { mockData } from '~/apis/mock-data'
@@ -65,6 +66,18 @@ function Board() {
     setBoard(newBoard)
   }
 
+  const moveColumn = async dndOrderedColumns => {
+    const dndOrderedColumnIds = dndOrderedColumns.map(column => column._id)
+    const newBoard = { ...board }
+    newBoard.columns = dndOrderedColumns
+    newBoard.columnOrderIds = dndOrderedColumnIds
+    setBoard(newBoard)
+
+    await updateBoardDetailsAPI(newBoard._id, {
+      columnOrderIds: dndOrderedColumnIds
+    })
+  }
+
   return (
     <Container
       disableGutters
@@ -79,6 +92,7 @@ function Board() {
         board={board}
         createNewColumn={createNewColumn}
         createNewCard={createNewCard}
+        moveColumn={moveColumn}
       />
     </Container>
   )

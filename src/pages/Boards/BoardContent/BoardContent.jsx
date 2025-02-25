@@ -28,7 +28,7 @@ const ACTIVE_DRAG_ITEM_TYPE = {
 
 const isColumn = item => !!item?.columnId
 
-function BoardContent({ board, createNewColumn, createNewCard }) {
+function BoardContent({ board, createNewColumn, createNewCard, moveColumn }) {
   const [activeDragItemId, setActiveDragItemId] = useState(null)
   const [activeDragItemType, setActiveDragItemType] = useState(null)
   const [activeDragData, setActiveDragData] = useState(null)
@@ -266,6 +266,7 @@ function BoardContent({ board, createNewColumn, createNewCard }) {
           newColumnIndex
         )
 
+        moveColumn(dndOrderedColumns)
         setOrderedColumns(dndOrderedColumns)
       }
     }
