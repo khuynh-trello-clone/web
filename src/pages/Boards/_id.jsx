@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import {
   createNewCardAPI,
   createNewColumnAPI,
+  deleteColumnDetailsAPI,
   fetchBoardDetailsAPI,
   moveCardToDifferentColumnAPI,
   updateBoardDetailsAPI,
@@ -21,6 +22,7 @@ import { generatePlaceholderCard } from '~/utils/formatters'
 import mapOrder from '~/utils/sorts'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
+import { toast } from 'react-toastify'
 
 const boardId = BOARD_ID
 
@@ -147,6 +149,29 @@ function Board() {
     })
   }
 
+  const deleteColumnDetails = async columnId => {
+    console.log('deleteColumnDetails', columnId)
+
+    const newBoard = { ...board }
+    const columnToDelete = newBoard.columns.find(
+      column => column._id === columnId
+    )
+    if (columnToDelete) {
+      newBoard.columns = newBoard.columns.filter(
+        column => column._id !== columnId
+      )
+      newBoard.columnOrderIds = newBoard.columnOrderIds.filter(
+        id => id !== columnId
+      )
+    }
+    setBoard(newBoard)
+
+    // Call API to delete column
+    deleteColumnDetailsAPI(columnId).then(() => {
+      toast.success('Column deleted successfully')
+    })
+  }
+
   if (!board) {
     return (
       <Box
@@ -181,6 +206,7 @@ function Board() {
         moveColumn={moveColumn}
         moveCardInSameColumn={moveCardInSameColumn}
         moveCardToDifferentColumn={moveCardToDifferentColumn}
+        deleteColumnDetails={deleteColumnDetails}
       />
     </Container>
   )
