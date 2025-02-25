@@ -12,7 +12,13 @@ import {
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 
-function ListColumns({ columns, boardId, createNewColumn, createNewCard }) {
+function ListColumns({
+  columns,
+  boardId,
+  createNewColumn,
+  createNewCard,
+  deleteColumnDetails
+}) {
   const [newColumnTitle, setNewColumnTitle] = useState('')
 
   const [openNewColumnForm, setOpenNewColumnForm] = useState(false)
@@ -63,6 +69,7 @@ function ListColumns({ columns, boardId, createNewColumn, createNewCard }) {
             key={column._id}
             column={column}
             createNewCard={createNewCard}
+            deleteColumnDetails={deleteColumnDetails}
           />
         ))}
 
