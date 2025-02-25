@@ -24,10 +24,9 @@ import TextField from '@mui/material/TextField'
 
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import theme from '~/theme/theme'
 import { toast } from 'react-toastify'
 
-function Column({ column }) {
+function Column({ column, createNewCard }) {
   const [newCardTitle, setNewCardTitle] = useState('')
 
   const [openNewCardForm, setOpenNewCardForm] = useState(false)
@@ -43,6 +42,13 @@ function Column({ column }) {
       })
       return
     }
+
+    const newCardData = {
+      title: newCardTitle,
+      columnId: column._id
+    }
+
+    createNewCard(newCardData)
 
     toggleNewCardForm()
     setNewCardTitle('')
