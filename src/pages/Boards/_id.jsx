@@ -10,12 +10,16 @@ import {
   createNewCardAPI,
   createNewColumnAPI,
   fetchBoardDetailsAPI,
-  updateBoardDetailsAPI
+  updateBoardDetailsAPI,
+  updateColumnDetailsAPI
 } from '~/apis'
 import { BOARD_ID } from '~/utils/constants'
 import { mockData } from '~/apis/mock-data'
 import { isEmpty } from 'lodash'
 import { generatePlaceholderCard } from '~/utils/formatters'
+import mapOrder from '~/utils/sorts'
+import Box from '@mui/material/Box'
+import CircularProgress from '@mui/material/CircularProgress'
 
 const boardId = BOARD_ID
 
@@ -24,10 +28,15 @@ function Board() {
 
   useEffect(() => {
     fetchBoardDetailsAPI(boardId).then(board => {
+      // order columns before setting board
+      board.columns = mapOrder(board.columns, board.columnOrderIds, '_id')
+
       board.columns.forEach(column => {
         if (isEmpty(column.cards)) {
           column.cards = [generatePlaceholderCard(column)]
           column.cardOrderIds = [generatePlaceholderCard(column)._id]
+        } else {
+          column.cards = mapOrder(column.cards, column.cardOrderIds, '_id')
         }
       })
 
@@ -73,9 +82,46 @@ function Board() {
     newBoard.columnOrderIds = dndOrderedColumnIds
     setBoard(newBoard)
 
-    await updateBoardDetailsAPI(newBoard._id, {
+    updateBoardDetailsAPI(newBoard._id, {
       columnOrderIds: dndOrderedColumnIds
     })
+  }
+
+  const moveCardInSameColumn = async (
+    dndOrderCards,
+    dndOrderedCardIds,
+    columnId
+  ) => {
+    const newBoard = { ...board }
+    const columnToUpdate = newBoard.columns.find(
+      column => column._id === columnId
+    )
+    if (columnToUpdate) {
+      columnToUpdate.cards = dndOrderCards
+      columnToUpdate.cardOrderIds = dndOrderedCardIds
+    }
+    setBoard(newBoard)
+
+    updateColumnDetailsAPI(columnId, {
+      cardOrderIds: dndOrderedCardIds
+    })
+  }
+
+  if (!board) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+          width: '100vw',
+          gap: 2
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    )
   }
 
   return (
@@ -93,6 +139,7 @@ function Board() {
         createNewColumn={createNewColumn}
         createNewCard={createNewCard}
         moveColumn={moveColumn}
+        moveCardInSameColumn={moveCardInSameColumn}
       />
     </Container>
   )

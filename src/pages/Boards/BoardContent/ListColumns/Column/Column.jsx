@@ -16,7 +16,6 @@ import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import { useState } from 'react'
-import mapOrder from '~/utils/sorts'
 import ListCards from './ListCards/ListCards'
 
 import CloseIcon from '@mui/icons-material/Close'
@@ -80,7 +79,7 @@ function Column({ column, createNewCard }) {
     setAnchorEl(null)
   }
 
-  const orderdCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
+  const orderdCards = column.cards
 
   return (
     <div ref={setNodeRef} style={dndKitColumnStyles} {...attributes}>
